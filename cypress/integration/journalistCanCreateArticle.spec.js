@@ -14,7 +14,13 @@ describe('User can create article', () => {
       cy.get('#title-input').type('Trump has gone insane')
       cy.get('#content-input').type('Trump has been diagnosed with crazy syndrome')
       cy.get('#author-input').type('Faraz')
-      cy.get('#category-input').type('Politics')
+      cy.get('button[type="button"]').click()
+      cy.get('.fileContainer').within(() => {
+        const fileName = 'test.jpg';
+        cy.fixture(fileName).then(fileContent => {
+          cy.get('input[type="file"]').upload({ fileContent, fileName, mimeType: 'application/jpg' });
+        });
+      })
 
       cy.get('#submit-article').click()
     })
@@ -36,9 +42,18 @@ describe('User can create article', () => {
       cy.get('#title-input').type('Trump has gone insane')
       cy.get('#content-input').type('Trump has been diagnosed with crazy syndrome')
       cy.get('#author-input').type('Faraz')
-      cy.get('#category-input').should('contain', '')
+      cy.get('button[type="button"]').click()
+      cy.get('.fileContainer').within(() => {
+        const fileName = 'data.json';
+        cy.fixture(fileName).then(fileContent => {
+          cy.get('input[type="file"]').upload({ fileContent, fileName, mimeType: 'application/json' });
+        });
+      })
       
       cy.get('#submit-article').click()
+    })
+    cy.get('.errorsContainer').within(() => {
+      cy.contains('is not a supported file extension')
     })
     cy.get('#response-message').should('contain' , 'Request failed with status code 400')
   })

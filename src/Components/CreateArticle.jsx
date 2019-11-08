@@ -1,13 +1,14 @@
  import React, { Component } from 'react'
  import { submitArticle } from '../Modules/RequestArticles'
  import { Form, Button, Container } from 'semantic-ui-react'
+ import ImageUploader from 'react-images-upload'
 
  class CreateArticle extends Component {
     state = {
-      title:'',
-      content:'',
-      author:'',
-      category:'',
+      title: '',
+      content: '',
+      author: '',
+      image: '',
       publish_date: '',
       renderArticleForm: false
     }
@@ -25,8 +26,8 @@
     }
 
     submitArticleHandler = async() => {
-      const { title, content, author, category, publish_date } = this.state
-      let response = await submitArticle(title, content, author, category, publish_date)
+      const { title, content, author, image } = this.state
+      let response = await submitArticle(title, content, author, image)
 
       if (response.status === 200) {
         this.setState({
@@ -39,9 +40,14 @@
       }
     }
 
+    onAvatarDropHandler = (pictureFiles, pictureDataURLs) => {
+      this.setState({
+        image: pictureDataURLs
+      })
+    }
+
     render() {
-      let articleForm
-      let responseMessage
+      let articleForm, responseMessage
 
       if (this.state.responseMessage) {
       responseMessage = <p id="response-message">{this.state.responseMessage}</p>
@@ -62,7 +68,17 @@
                   <input name="author" id="author-input" placeholder="Author" onBlur ={this.inputHandler}/>
                 </Form.Field>
                 <Form.Field>
-                  <input name="category" id="category-input" placeholder="Category" onBlur ={this.inputHandler}/>
+                  <ImageUploader 
+                    className="file-input"
+                    buttonText={"Upload article image (jpg/png)"}
+                    withPreview
+                    withIcon
+                    withLabel={false}
+                    onChange={this.onAvatarDropHandler}
+                    imgExtension={[".jpg", ".png"]}
+                    maxFileSize={5242880}
+                    singleImage={true}
+                  />
                 </Form.Field>
                 <Form.Field>
                   <Button id="submit-article" onClick={this.submitArticleHandler.bind(this)}>Submit Article</Button>
