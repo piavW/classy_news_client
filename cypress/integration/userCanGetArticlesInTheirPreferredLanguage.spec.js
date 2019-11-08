@@ -22,6 +22,7 @@ describe('User can get articles in their preferred language', () => {
       'http://localhost:3001',
       stubLanguage(['sv-SE', 'sv'])
     )
+    cy.get('#change-language').click()
     cy.get('h2').should('contain', 'Svensk Nyhet')
     cy.contains('Leonardo da Vinci fem decennier på:')
     cy.get('h2').should('contain', 'En till svensk nyhet')
