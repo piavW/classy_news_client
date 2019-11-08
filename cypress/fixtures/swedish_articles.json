@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "title": "Svensk Nyhet",
+    "content": "Leonardo da Vinci fem decennier på:",
+    "author": "Lauren Lion",
+    "image": "https://t3.ftcdn.net/jpg/02/48/42/64/240_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg",
+    "publish_date": "2 November 2019",
+    "language": "sv"
+    },
+    {
+      "id": 2,
+      "title": "En till svensk nyhet",
+      "content": "Ja det är sant",
+      "author": "Göran Persson",
+      "image": "https://t3.ftcdn.net/jpg/02/48/42/64/240_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg",
+      "publish_date": "20 October 2019",
+      "language": "sv"
+    }
+]

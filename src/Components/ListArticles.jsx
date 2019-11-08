@@ -18,10 +18,7 @@ class ListArticles extends Component {
   }
 
   async getArticles() {
-    let language = navigator.language.split('-')[0]
-    debugger
-    let result = await getData(language)
-    
+    let result = await getData()
 
     if (result.status === 400) {
       this.setState({
@@ -53,7 +50,7 @@ class ListArticles extends Component {
             return <div key={art.id}>
               <Item.Group> 
                 <Item>
-                  <Item.Image size='tiny' src='https://react.semantic-ui.com/images/wireframe/image.png' />
+                  <Item.Image size='tiny' src={art.image} />
                   <Item.Content>
                     <Item.Description>{art.publish_date}</Item.Description>
                     <Item.Header as='h2'>{art.title}</Item.Header>
