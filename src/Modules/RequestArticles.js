@@ -2,9 +2,14 @@ import axios from 'axios'
 
 const apiUrl = 'http://localhost:3000/api/v1/'
 
-const getData = async () => {
+const getData = async (language) => {
   try {
-    let response = await axios.get(apiUrl + 'articles')
+    let response
+    if (language) {
+      response = await axios.get(apiUrl + `articles/?language=${language}`)
+    } else {
+      response = await axios.get(apiUrl + 'articles')
+    }
     return response
   } catch (error) {
     return {

@@ -18,7 +18,10 @@ class ListArticles extends Component {
   }
 
   async getArticles() {
-    let result = await getData()
+    let language = navigator.language.split('-')[0]
+    debugger
+    let result = await getData(language)
+    
 
     if (result.status === 400) {
       this.setState({
