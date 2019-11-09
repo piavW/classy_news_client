@@ -10,16 +10,9 @@ import { withTranslation } from 'react-i18next';
 
 class Login extends Component {
   state = {
-    renderLoginForm: false,
     email: '',
     password: '',
     errorMessage: ''
-  }
-
-  renderLogin = () => {
-    this.setState({
-      renderLoginForm: !this.state.renderLoginForm
-    })
   }
 
   inputChangeHandler = (e) => {
@@ -29,43 +22,31 @@ class Login extends Component {
   }
 
   handleLogin = () => {
-    const { signInUser } = this.props;
-    const { email, password } = this.state;
+    const { signInUser } = this.props
+    const { email, password } = this.state
     signInUser({ email, password })
       .then(
         console.log('yiihaaaa')
       )
       .catch(error => {
-        this.setState({errorMessage: error.response.data.errors}) 
+        this.setState({errorMessage: error.response.data.errors }) 
       })
   }
 
   render() {
-    const { t } = this.props;
-    let loginForm
-    let welcomeMessage
-    let errorMessage
+    let loginForm, welcomeMessage, errorMessage
 
     if (this.props.currentUser.isSignedIn) {
-      welcomeMessage = <p id="welcome-message">{t('login.hello')} {this.props.currentUser.attributes.name}</p>
+      welcomeMessage = <p id="welcome-message">{t('login.hello')} {this.props.currentUser.attributes.name}</p> 
     } else {
-      if (this.state.renderLoginForm) {
-        loginForm = (
-          <div>
-            <LoginForm
-              inputChangeHandler = {this.inputChangeHandler}
-              handleLogin={this.handleLogin}
-              renderLogin={this.renderLogin}
-            />
-          </div>
-        )
-      } else {
-        loginForm = (
-          <div>
-            <Button id="login-button" onClick={ this.renderLogin }>{t('login.login')}</Button>
-          </div>
-        )
-      }
+      loginForm = (
+        <div>
+          <LoginForm
+            inputChangeHandler = {this.inputChangeHandler}
+            handleLogin={this.handleLogin}
+          />
+        </div>
+      )
     }
     if (this.state.errorMessage !== '') {
       errorMessage = this.state.errorMessage
@@ -79,7 +60,7 @@ class Login extends Component {
               { loginForm }
               { welcomeMessage }
             </div>
-            <p id="error-message">{ errorMessage }</p>
+            { errorMessage }
           </Grid.Column>
         </Grid>   
       </Container>  
@@ -101,4 +82,4 @@ export default withTranslation()
 connect(
   mapStateToProps,  
   mapDispatchToProps
-)(Login);
+)(Login)

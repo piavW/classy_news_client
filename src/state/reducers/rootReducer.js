@@ -5,4 +5,4 @@ const rootReducer = combineReducers({
   reduxTokenAuth: reduxTokenAuthReducer
 })
 
-export default rootReducer;
+export default rootReducer

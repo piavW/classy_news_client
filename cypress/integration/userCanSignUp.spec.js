@@ -4,11 +4,11 @@ describe('User can sign up', () => {
   })
 
   it('successfully', () => {
-    cy.visit('http://localhost:3001');
-    cy.server();
+    cy.visit('http://localhost:3001')
+    cy.server()
     cy.route({
       method: 'POST',
-      url: 'http://localhost:3000/api/v1/auth',
+      url: 'https://classy-news-backend.herokuapp.com/auth',
       response: 'fixture:successful_user_signup.json',
       status: 200,
       headers: {
@@ -27,15 +27,15 @@ describe('User can sign up', () => {
       cy.get('#password-confirmation').type('password')
     })
     cy.get('#submit-signup-form').click()
-    cy.get('#welcome-message').should('contain', 'Hello name')
+    cy.get('#welcome-message').should('contain', 'Hello ')
   })
 
   it('unsuccessfully', () => {
-    cy.visit('http://localhost:3001');
-    cy.server();
+    cy.visit('http://localhost:3001')
+    cy.server()
     cy.route({
       method: 'POST',
-      url: 'http://localhost:3000/api/v1/auth',
+      url: 'https://classy-news-backend.herokuapp.com/auth',
       response: 'fixture:unsuccessful_user_signup.json',
       status: 422,
     })
@@ -51,6 +51,6 @@ describe('User can sign up', () => {
       cy.get('#password-confirmation').type('wrong_password')
     })
     cy.get('#submit-signup-form').click()
-    cy.get('#error-message').should('contain', 'Invalid credentials')
+    cy.contains('Invalid credentials')
   })
 })

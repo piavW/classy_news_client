@@ -1,13 +1,14 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans|Stoke&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans|Noto+Serif&display=swap');
 
 h1 {
-  font-family: 'Stoke', serif !important;
+  font-family: 'Noto+Serif', serif !important;
   font-weight: 900 !important;
   font-style: regular !important;
+  font-size: 60px;
 }
 
 h2 {
-  font-family: 'Stoke', serif !important;
+  font-family: 'Noto+Serif', serif !important;
   font-weight: 700 !important;
   font-style: light !important;
 }
@@ -64,4 +65,40 @@ body {
 }
 .select-css option {
   font-weight:normal;
+}
+#article-title.header {
+  align-content: center!important;
+  margin-right: 30px!important;
+}
+#navbar-title {
+  font-size: 20px;
+  font-family: 'Noto+Serif', serif !important;
+  font-weight: 900 !important;
+}
+.navbar {
+  font-family: 'Open Sans', sans-serif !important;
+}
+#header-title.ui.header {
+  font-size: 50px;
+  font-family: 'Noto+Serif', serif !important;
+  margin-top: 10px;
+}
+#article-image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 250px;
+}
+#article-title.header {
+  font-size: 30px;
+  align-content: left!important;
+  margin-left: 0px!important;
+}
+
+#navbar-home {
+  width: 90px;
+}
+
+#navbar-home-image {
+  width: 60px;
 }

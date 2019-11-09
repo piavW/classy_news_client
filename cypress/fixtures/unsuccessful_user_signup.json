@@ -1,3 +1,7 @@
 {
-  "errors": "Invalid credentials"
+  "errors": {
+    "full_messages": [
+      "Invalid credentials"
+    ]
+  }
 }

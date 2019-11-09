@@ -10,7 +10,6 @@ import { Button,
 
 class Signup extends Component {
   state = {
-    renderSignupForm: false,
     email: '',
     password: '',
     password_confirmation: '',
@@ -21,12 +20,6 @@ class Signup extends Component {
     errorMessage: ''
   }
 
-  renderSignup = () => {
-    this.setState({
-      renderSignupForm: !this.state.renderSignupForm
-    })
-  }
-
   inputChangeHandler = (e) => {
     this.setState({
       [e.target.name]: e.target.value
@@ -34,46 +27,41 @@ class Signup extends Component {
   }
 
   handleSignup = () => {
-    const { registerUser } = this.props;
-    const { email, name, nickname, password, password_confirmation, city, country } = this.state;
-    registerUser({ email, name, nickname, password, password_confirmation, city, country })
+    const { registerUser } = this.props
+    const { email, name, nickname, password, password_confirmation, city, country} = this.state
+    const role = 'user'
+    registerUser({ email, name, nickname, password, password_confirmation, city, country, role })
       .then(
         console.log('yiihaaaa')
       )
       .catch(error => {
-        this.setState({errorMessage: error.response.data.errors}) 
+        if (error.response.status === 500) {
+          this.setState({errorMessage: 'Must submit valid credentials to sign up.'})
+        } else {
+        this.setState({errorMessage: error.response.data.errors.full_messages[0]}) 
+        }
       })
-  }
-
+    }
+  
   render() {
-    const { t } = this.props;
-    let signupForm
-    let welcomeMessage
-    let errorMessage
+    let signupForm, errorMessage
 
     if (this.props.currentUser.isSignedIn) {
-      welcomeMessage = <p id="welcome-message">{t('signup.hello')} {this.props.currentUser.attributes.name}</p>
+          signupForm = (
+            <p id='welcome-message'>{t('signup.hello')} {this.props.currentUser.attributes.name}</p>
+          )
     } else {
-      if (this.state.renderSignupForm) {
-        signupForm = (
-          <div>
-            <SignupForm
-              inputChangeHandler = {this.inputChangeHandler}
-              handleSignup={this.handleSignup}
-              renderSignup={this.renderSignup}
-            />
-          </div>
-        )
-      } else {
-        signupForm = (
-          <div>
-            <Button id="signup-button" onClick={ this.renderSignup }>{t('signup.signup')}</Button>
-          </div>
-        )
-      }
+      signupForm = (
+        <div>
+          <SignupForm
+            inputChangeHandler = {this.inputChangeHandler}
+            handleSignup ={this.handleSignup}
+          />
+        </div>
+      )
     }
-    if (this.state.errorMessage !== '') {
-      errorMessage = this.state.errorMessage
+    if (this.state.errorMessage) {
+      errorMessage = <p>{this.state.errorMessage}</p>
     }
 
     return (
@@ -82,9 +70,8 @@ class Signup extends Component {
           <Grid.Column>
             <div>
               { signupForm }
-              { welcomeMessage }
+              { errorMessage }
             </div>
-            <p id="error-message">{ errorMessage }</p>
           </Grid.Column>
         </Grid>   
       </Container>  
@@ -106,4 +93,4 @@ export default withTranslation()
 connect(
   mapStateToProps,  
   mapDispatchToProps
-)(Signup);
+)(Signup)

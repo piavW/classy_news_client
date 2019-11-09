@@ -1,7 +1,5 @@
 import React from 'react'
-import { Form,
-         Button 
-} from "semantic-ui-react";
+import { Form, Button } from "semantic-ui-react"
 
 const SignupForm = (props) => {
   const { t } = this.props;
@@ -38,7 +36,6 @@ const SignupForm = (props) => {
             <input onChange={props.inputChangeHandler} placeholder={t('signupform.passwordconfirmation')} name='password_confirmation' id="password-confirmation" />
           </Form.Field>
           <Button onClick={props.handleSignup} id="submit-signup-form" type='submit'>{t('signupform.submit')}</Button>
-          <Button onClick={props.renderSignup} id="cancel-signup-form">{t('signupform.cancel')}</Button>
         </Form>
     </div>
   )

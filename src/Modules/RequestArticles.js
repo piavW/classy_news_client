@@ -1,11 +1,12 @@
 import axios from 'axios'
+import getCurrentCredentials from './GetCredentials'
 
-const apiUrl = 'http://localhost:3000/api/v1/'
+const apiUrl = 'https://classy-news-backend.herokuapp.com/api/v1/'
 
 const getData = async () => {
   try {
     let response = await axios.get(apiUrl + 'articles')
-    return response
+    return response.data.articles
   } catch (error) {
     return {
       error_message: error.message,
@@ -14,14 +15,18 @@ const getData = async () => {
   }
 }
 
-const submitArticle = async (title, content, author) => {
+const submitArticle = async (title, content, author, image) => {
   try {
     let response = await axios.post(
       apiUrl + 'articles',
       {
         title: title,
         content: content,
-        author: author
+        author: author,
+        image: image[0]
+      }, 
+      {
+        headers: getCurrentCredentials()
       }
     )
     return response
@@ -30,4 +35,19 @@ const submitArticle = async (title, content, author) => {
   }
 }
 
-export { getData, submitArticle }
+const getArticle = async (chosenArticle) => {
+  debugger
+  try {
+    let response = await axios.get(
+      apiUrl + `articles/${chosenArticle}`, 
+      {
+        headers: getCurrentCredentials()
+      }
+    )
+    return response 
+  } catch(error) {
+    return error.response.data.error || error.response.data.error_message
+  }
+}
+
+export { getData, submitArticle, getArticle }

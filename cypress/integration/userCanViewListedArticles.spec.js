@@ -3,16 +3,14 @@ describe('user can view listed articles', () => {
     cy.server()
     cy.route({
       method: 'GET',
-      url: 'http://localhost:3000/api/v1/articles',
+      url: 'https://classy-news-backend.herokuapp.com/api/v1/articles',
       response: 'fixture:articles.json'
     })
     cy.visit('http://localhost:3001')
-    cy.get('h1').should('contain', 'Classy News')
-    cy.get('h2')
-      .should('contain', 'Leonardo da Vinci five centuries on:')
-      .should('contain', 'Some Title')
+    cy.contains('Leonardo da Vinci five centuries on:')
+    cy.contains('Some Title')
     cy.contains('The Louvre museum in Paris,')
-    cy.contains('Some good content')
+    cy.contains('Some good')
     cy.contains('Lauren Lion')
     cy.contains('Some awesome author')
     cy.contains('20 October 2019')
@@ -22,10 +20,11 @@ describe('user can view listed articles', () => {
     cy.server()
     cy.route({
       method: 'GET',
-      url: 'http://localhost:3000/api/v1/articles',
+      url: 'https://classy-news-backend.herokuapp.com/api/v1/articles',
       status: 400,
+      response: {}
     })
     cy.visit('http://localhost:3001')
-    cy.contains('Network Error')
+    cy.contains('Request failed with status code 400')
   })
 })
